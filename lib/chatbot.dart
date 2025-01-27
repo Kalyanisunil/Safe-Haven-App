@@ -8,59 +8,66 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
   final List<Map<String, String>> _messages = [];
-  final ScrollController _scrollController =
-      ScrollController(); // Scroll controller to auto-scroll
+  final ScrollController _scrollController = ScrollController();
+  bool _isLoading = false;
 
   void _sendMessage() {
-    print('Message before sending: ${_controller.text}');
-    if (_controller.text.isNotEmpty) {
-      setState(() {
-        // Add the user's message
-        _messages.add({'sender': 'user', 'message': _controller.text});
-      });
+    String userMessage = _controller.text.trim();
+    print('Message before sending: $userMessage');
 
-      // Scroll to the bottom after adding the user's message
+    if (userMessage.isNotEmpty) {
+      setState(() {
+        _messages.add({'sender': 'user', 'message': userMessage});
+        _isLoading = true;
+      });
+      print('Messages after sending: $_messages');
+
       _scrollToBottom();
 
-      // Simulate a delay for bot response
       Future.delayed(Duration(seconds: 1), () {
-        // print(${_controller.text});
-        String botResponse = _getBotResponse(_controller.text);
+        String botResponse = _getBotResponse(userMessage);
         setState(() {
           _messages.add({'sender': 'bot', 'message': botResponse});
+          _isLoading = false;
         });
+        print('Messages after bot response: $_messages');
 
-        // Scroll to the bottom after adding the bot's message
         _scrollToBottom();
       });
 
-      // Clear the text input field
       _controller.clear();
     }
   }
 
   String _getBotResponse(String userMessage) {
-    // Predefined bot responses
-    userMessage = userMessage.trim().toLowerCase();
-    print('User Message: $userMessage');
-    if (userMessage.toLowerCase().contains('hello')) {
+    userMessage = userMessage.toLowerCase();
+    if (userMessage.contains(RegExp(r'hello|hi'))) {
       return "Hello! How can I assist you today?";
-    } else if (userMessage.toLowerCase().contains('how are you')) {
-      return "I'm doing great! Thanks for asking.";
-    } else if (userMessage.toLowerCase().contains('bye')) {
+    } else if (userMessage.contains('how are you')) {
+      return "I'm doing great! Thanks for asking. How can I help you today?";
+    } else if (userMessage.contains(RegExp(r'bye|goodbye'))) {
       return "Goodbye! Have a nice day!";
+    } else if (userMessage.contains('help')) {
+      return "Sure, I'm here to help. Please tell me what you need assistance with.";
+    } else if (userMessage.contains(RegExp(r'thanks|thank you'))) {
+      return "You're welcome! Is there anything else I can help with?";
     } else {
-      return "I'm sorry, I didn't understand that.";
+      return "I'm sorry, I didn't understand that. Could you please rephrase your message?";
     }
   }
 
-  // Scroll to the bottom of the list
   void _scrollToBottom() {
     _scrollController.animateTo(
       _scrollController.position.maxScrollExtent,
       duration: Duration(milliseconds: 300),
       curve: Curves.easeOut,
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -73,7 +80,7 @@ class _ChatScreenState extends State<ChatScreen> {
         children: [
           Expanded(
             child: ListView.builder(
-              controller: _scrollController, // Attach the scroll controller
+              controller: _scrollController,
               itemCount: _messages.length,
               itemBuilder: (context, index) {
                 return ListTile(
@@ -99,6 +106,7 @@ class _ChatScreenState extends State<ChatScreen> {
               },
             ),
           ),
+          if (_isLoading) CircularProgressIndicator(),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(

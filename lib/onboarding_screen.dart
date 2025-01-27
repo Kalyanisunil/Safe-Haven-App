@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safehaven/home_screen.dart';
+import 'package:safehaven/main.dart';
+// import 'package:safehaven/sendsms.dart';
 import 'login_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -89,8 +91,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                // builder: (context) => LoginScreen()),
-                                builder: (context) => HomeScreen()),
+                                builder: (context) => LoginScreen()),
+                                // builder: (context) => ()),
                           );
                         },
                         child: Text("Get Started"),

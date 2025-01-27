@@ -3,6 +3,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:safehaven/chatbot.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:safehaven/btmNavbar.dart';
+// import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+// import 'package:background_sms/background_sms.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -33,25 +35,38 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
   }
+//  _sendMessage(String phoneNumber, String message, {int? simSlot}) async {
+//     var result = await BackgroundSms.sendMessage(
+//         phoneNumber: phoneNumber, message: message, simSlot: simSlot);
+//     if (result == SmsStatus.sent) {
+//       print("Sent");
+//     } else {
+//       print("Failed");
+//     }
+//   }
 
   // Function to make a call
-  Future<void> makeEmergencyCall() async {
-    String number = emergencyContacts[0]; // Call the first contact
-    final Uri callUri = Uri(scheme: 'tel', path: number);
-    if (await canLaunchUrl(callUri)) {
-      await launchUrl(callUri);
-    } else {
-      throw 'Could not launch $callUri';
-    }
-  }
+  // Future<void> makeEmergencyCall() async {
+  //   String number = emergencyContacts[0]; // Call the first contact
+  //   final Uri callUri = Uri(scheme: 'tel', path: number);
+  //   if (await canLaunchUrl(callUri)) {
+  //     await launchUrl(callUri);
+  //   } else {
+  //     throw 'Could not launch $callUri';
+  //   }
+  // }
+  // _callNumber() async {
+  //       print("Calling...");
+  //   const number = '+919188271040'; //set the number here
+  //   bool? res = await FlutterPhoneDirectCaller.callNumber(number);
+
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Safe Haven'),
-        backgroundColor: Colors.pink,
-      ),
+          title: Text('Safe Haven'), backgroundColor: Colors.transparent),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -68,7 +83,9 @@ class _HomeScreenState extends State<HomeScreen> {
             GestureDetector(
               onTap: () async {
                 await sendEmergencySMS();
-                await makeEmergencyCall();
+                // await makeEmergencyCall();
+                // await _sendMessage("+919188271040", "hi");
+                // await _callNumber();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('Emergency Alert Sent!'),
@@ -103,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(height: 30),
             Text(
-              'Tap the SOS button to send an alert\nand make an emergency call.',
+              'Tap the SOS button to send an alert.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
@@ -115,11 +132,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavBar(currentIndex: 0),
       floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.chat),
         onPressed: () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => ChatScreen()));
-          child:
-          Icon(Icons.chat);
         },
       ),
     );

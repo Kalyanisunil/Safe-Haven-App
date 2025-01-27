@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:safehaven/home_screen.dart';
 import 'package:safehaven/onboarding_screen.dart';
 import 'package:safehaven/profile.dart';
+// import 'package:safehaven/sendsms.dart';
 import 'package:safehaven/splashscreen.dart';
 import 'login_screen.dart';
 
@@ -19,11 +20,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/splash',
       routes: {
-        '/splash': (context) => SplashScreen( ),
+        '/splash': (context) => SplashScreen(),
         '/onboarding': (context) => OnboardingScreen(),
         '/Login': (context) => LoginScreen(),
         '/home': (context) => HomeScreen(),
-        '/prodile':(context)=>UserProfilePage()      },
+        '/profile':(context)=>UserProfilePage()      
+        },
       home: LoginScreen(),
     );
   }

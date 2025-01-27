@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">15762214932</string>
+    <string name="google_api_key" translatable="false">AIzaSyCYImps05Sk6po33rnZIvxB8M_r3zd9hQY</string>
+    <string name="google_app_id" translatable="false">1:15762214932:android:6909561bb34408ca18d701</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCYImps05Sk6po33rnZIvxB8M_r3zd9hQY</string>
+    <string name="google_storage_bucket" translatable="false">safehaven-d0227.firebasestorage.app</string>
+    <string name="project_id" translatable="false">safehaven-d0227</string>
+</resources>
