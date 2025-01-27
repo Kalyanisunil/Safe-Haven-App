@@ -1,0 +1,58 @@
+name: safehaven
+description: "A new Flutter project."
+
+# Prevent accidental publishing to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+# Version and build number for your application
+version: 1.0.0+1
+
+# Flutter SDK environment
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Cupertino Icons for iOS style icons
+  cupertino_icons: ^1.0.8
+
+  # Firebase dependencies
+  firebase_core: ^3.10.1
+  firebase_auth: ^5.4.0
+  firebase_storage: ^12.4.0
+
+  # Utility dependencies
+  shared_preferences: ^2.3.5
+  permission_handler: ^11.3.1
+  url_launcher: ^6.3.1
+  flutter_launcher_icons: ^0.14.3
+  sms_mms: ^0.0.3
+  audioplayers: ^6.1.0
+  cloud_firestore: ^5.6.2
+  # sms_maintained: ^0.3.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/pic.png"
+  # Linting package for better code quality
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.11.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/pic.png
+    - assets/logo.webp
+    - assets/landingpage_0 2.png
+    - assets/landing page 2 1.png
+    - assets/landing1 1.png
+    - assets/Ellipse 3.png
+    - assets/Safe Haven.png
+    - assets/Ellipse 9.png
+    - assets/safehavenlogo.png
