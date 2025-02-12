@@ -37,7 +37,7 @@ class _SignUpPageState extends State<SignUpPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => HomeScreen()), // Navigate to Home
+              builder: (context) => HomeScreen()), 
         );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -86,13 +86,6 @@ class _SignUpPageState extends State<SignUpPage> {
               onPressed: _signUp,
               child: Text('Sign Up'),
             ),
-            // TextButton(
-            //   onPressed: () {
-            //     // Navigate to the Sign-In Page
-            //     Navigator.pop(context);
-            //   },
-            //   child: Text('Already have an account? Sign In'),
-            // ),
           ],
         ),
       ),

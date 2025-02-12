@@ -14,6 +14,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^0.13.6 
 
   # Cupertino Icons for iOS style icons
   cupertino_icons: ^1.0.8
@@ -35,6 +36,8 @@ dependencies:
   # telephony: ^0.2.0
   # another_telephony: ^0.3.0
   location: ^8.0.0
+  flutter_local_notifications: ^18.0.1
+  telephony: ^0.2.0
   # background_sms: ^0.0.1
   # flutter_phone_direct_caller: ^2.1.1
   # flutter_sms: ^2.3.3
@@ -50,6 +53,9 @@ flutter_icons:
   # Linting package for better code quality
   flutter_lints: ^5.0.0
   flutter_launcher_icons: ^0.11.0
+  # geofencing: ^0.4.0
+  permission_handler: ^11.0.1
+  geofencing: ^0.1.0
 
 flutter:
   uses-material-design: true

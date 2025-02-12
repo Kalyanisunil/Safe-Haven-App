@@ -49,21 +49,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ],
             ),
           ),
-          // Stack to overlap the image, navigation dots, and buttons
+          
           Stack(
             alignment: Alignment.bottomCenter,
             children: [
-              // Image at the bottom
+           
               Image.asset(
-                'assets/Ellipse 3.png', // Change this to your image path
+                'assets/Ellipse 3.png', 
                 width: double.infinity,
-                height: 180, // Adjust the height as per your requirement
-                fit: BoxFit.cover, // Make sure image covers the area
+                height: 180, 
+                fit: BoxFit.cover, 
               ),
 
-              // The navigation dots on top of the image
+              
               Positioned(
-                bottom: 80, // Adjust the distance from the bottom as needed
+                bottom: 80, 
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(3, (index) {
@@ -82,9 +82,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ),
 
-              // Positioned buttons on top of the image
+              
               Positioned(
-                bottom: 20, // Adjust the distance from the bottom as needed
+                bottom: 20, 
                 child: _currentPage == 2
                     ? ElevatedButton(
                         onPressed: () {

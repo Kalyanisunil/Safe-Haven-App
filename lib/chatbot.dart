@@ -1,5 +1,8 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+final String geminiApiKey = "AIzaSyByojKqbGVzEnpRnU-nmvnfh6KFmbAGiaw";
 class ChatScreen extends StatefulWidget {
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -11,50 +14,53 @@ class _ChatScreenState extends State<ChatScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _isLoading = false;
 
-  void _sendMessage() {
-    String userMessage = _controller.text.trim();
-    print('Message before sending: $userMessage');
+  void _sendMessage() async {
+  String userMessage = _controller.text.trim();
 
-    if (userMessage.isNotEmpty) {
-      setState(() {
-        _messages.add({'sender': 'user', 'message': userMessage});
-        _isLoading = true;
-      });
-      print('Messages after sending: $_messages');
+  if (userMessage.isNotEmpty) {
+    setState(() {
+      _messages.add({'sender': 'user', 'message': userMessage});
+      _isLoading = true;
+    });
 
-      _scrollToBottom();
+    _scrollToBottom();
 
-      Future.delayed(Duration(seconds: 1), () {
-        String botResponse = _getBotResponse(userMessage);
-        setState(() {
-          _messages.add({'sender': 'bot', 'message': botResponse});
-          _isLoading = false;
-        });
-        print('Messages after bot response: $_messages');
+    String botResponse = await _getBotResponse(userMessage);
 
-        _scrollToBottom();
-      });
+    setState(() {
+      _messages.add({'sender': 'bot', 'message': botResponse});
+      _isLoading = false;
+    });
 
-      _controller.clear();
-    }
+    _scrollToBottom();
+    _controller.clear();
   }
+}
 
-  String _getBotResponse(String userMessage) {
-    userMessage = userMessage.toLowerCase();
-    if (userMessage.contains(RegExp(r'hello|hi'))) {
-      return "Hello! How can I assist you today?";
-    } else if (userMessage.contains('how are you')) {
-      return "I'm doing great! Thanks for asking. How can I help you today?";
-    } else if (userMessage.contains(RegExp(r'bye|goodbye'))) {
-      return "Goodbye! Have a nice day!";
-    } else if (userMessage.contains('help')) {
-      return "Sure, I'm here to help. Please tell me what you need assistance with.";
-    } else if (userMessage.contains(RegExp(r'thanks|thank you'))) {
-      return "You're welcome! Is there anything else I can help with?";
-    } else {
-      return "I'm sorry, I didn't understand that. Could you please rephrase your message?";
-    }
+
+ 
+
+Future<String> _getBotResponse(String userMessage) async {
+  final url = Uri.parse("https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateText?key=$geminiApiKey");
+
+  final response = await http.post(
+    url,
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({
+      "prompt": {"text": userMessage},
+      "temperature": 0.7,
+      "max_tokens": 100
+    }),
+  );
+
+  if (response.statusCode == 200) {
+    final data = jsonDecode(response.body);
+    return data['candidates'][0]['output'] ?? "I'm sorry, I couldn't process that.";
+  } else {
+    return "Error: Unable to connect to AI.";
   }
+}
+
 
   void _scrollToBottom() {
     _scrollController.animateTo(
