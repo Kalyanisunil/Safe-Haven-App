@@ -53,7 +53,7 @@ class GeofenceService {
     });
   }
 
-  // Check if user is inside any safe zone
+ 
   bool _isUserInsideSafeZone(double lat, double lng) {
     for (var safeZone in safeZones) {
       double distance = Geolocator.distanceBetween(lat, lng, safeZone["lat"]!, safeZone["lng"]!);
@@ -64,13 +64,13 @@ class GeofenceService {
     return false;
   }
 
-  // Send alert notification & SMS
+  
   void _sendAlert() async {
     _sendNotification("Safety Alert", "You've exited your safe zone!");
     _sendSMS("You have left your safe zone! Please check in.");
   }
 
-  // Send local notification
+  
   Future<void> _sendNotification(String title, String body) async {
     const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
       'geofence_alerts', 'Geofence Alerts',
@@ -80,7 +80,7 @@ class GeofenceService {
     await notificationsPlugin.show(0, title, body, details);
   }
 
-  // Send SMS alert to trusted contacts
+  
   void _sendSMS(String message) async {
     List<String> contacts = await _getTrustedContacts();
     for (String contact in contacts) {
@@ -88,13 +88,13 @@ class GeofenceService {
     }
   }
 
-  // Get trusted contacts
+  
   Future<List<String>> _getTrustedContacts() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getStringList("trusted_contacts") ?? [];
   }
 
-  // Dispose the stream when not needed
+ 
   void dispose() {
     _positionStream.cancel();
   }

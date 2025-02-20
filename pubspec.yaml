@@ -38,6 +38,7 @@ dependencies:
   location: ^8.0.0
   flutter_local_notifications: ^18.0.1
   telephony: ^0.2.0
+  flutter_sound: ^9.23.1
   # background_sms: ^0.0.1
   # flutter_phone_direct_caller: ^2.1.1
   # flutter_sms: ^2.3.3
